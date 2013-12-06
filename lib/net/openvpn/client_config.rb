@@ -15,7 +15,7 @@ module Net
       end
 
       def path
-        ccdpath @hostname
+        Net::Openvpn.ccdpath @hostname
       end
 
       def exists?

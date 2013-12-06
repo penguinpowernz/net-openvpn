@@ -13,7 +13,8 @@ module Net
       end
 
       def client(hostname)
-        Net::Openvpn::ClientConfig.new(hostname)
+        Net::Openvpn::Client.new(hostname)
+      end
       end
 
     end
