@@ -15,6 +15,9 @@ module Net
       def client(hostname)
         Net::Openvpn::Client.new(hostname)
       end
+
+      def server(name)
+        Net::Openvpn::Server.new(name)
       end
 
     end
