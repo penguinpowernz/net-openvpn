@@ -11,6 +11,14 @@ module Net
         @config = Net::Openvpn::Parser::ServerConfig.parse(path)
       end
 
+      def get(key)
+        @config[key]
+      end
+
+      def set(key, value)
+        @config[key] = value
+      end
+
       def path
         Net::Openvpn.basepath "#{@name}.conf"
       end
