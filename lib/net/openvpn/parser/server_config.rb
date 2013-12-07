@@ -4,10 +4,10 @@ module Net
       module ServerConfig
         class << self
 
-          def parse(path)
+          def parse(text)
             config = {}
 
-            File.readlines(path).each_line do |line|
+            text.each_line do |line|
               next if line =~ /^$/
               parts = line.split(" ")
               key = parts.first
@@ -18,12 +18,12 @@ module Net
             config
           end
 
-          def save(path, config)
-            File.open(path, "w") do |f|
-              config.each do |key, value|
-                f.puts "#{key} #{value}"
-              end
+          def generate(config)
+            text = ""
+            config.each do |key, value|
+              text.concat "#{key} #{value}\n"
             end
+            text
           end
 
         end

@@ -8,7 +8,7 @@ module Net
       end
 
       def load
-        @config = Net::Openvpn::Parser::ServerConfig.parse(path)
+        @config = Net::Openvpn::Parser::ServerConfig.parse(File.read(path))
       end
 
       def get(key)
@@ -28,7 +28,10 @@ module Net
       end
 
       def save
-        Net::Openvpn::Parser::ServerConfig.save(path, @config)
+        text = Net::Openvpn::Parser::ServerConfig.generate(@config)
+        File.open(path, "w") do |f|
+          f.puts text
+        end
       end
 
     end
