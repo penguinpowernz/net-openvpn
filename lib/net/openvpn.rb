@@ -12,8 +12,8 @@ module Net
         basepath "ccd#{path}"
       end
 
-      def client(hostname)
-        Net::Openvpn::Client.new(hostname)
+      def host(hostname)
+        Net::Openvpn::Host.new(hostname)
       end
 
       def server(name)

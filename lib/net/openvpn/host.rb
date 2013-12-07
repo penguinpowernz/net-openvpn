@@ -1,6 +1,6 @@
 module Net
   module Openvpn
-    class Client
+    class Host
 
       def initialize(hostname)
         @hostname = hostname
