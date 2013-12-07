@@ -1,3 +1,8 @@
+require 'net/openvpn/server'
+require 'net/openvpn/host'
+require 'net/openvpn/client_config'
+require 'net/openvpn/parser/server_config'
+
 module Net
   module Openvpn
     class << self
