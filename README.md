@@ -25,6 +25,14 @@ host.network = 10.8.0.0
 host.save
 ```
 
+This would create a file at `/etc/openvpn/ccd/optimus` containing the following:
+
+```
+ifconfig-push 10.8.0.24 10.8.0.0
+```
+
+So that any host connecting to the VPN with a hostname of `optimus` get assigned `10.8.0.24`.
+
 ## Rails Permissions
 
 If you are running rails and you want to give the rails user access, you could do it like this:
