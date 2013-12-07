@@ -19,8 +19,8 @@ module Net
         @config.ip = ip
       end
 
-      def subnet=(subnet)
-        @config.subnet = subnet
+      def network=(network)
+        @config.network = network
       end
 
       def save
