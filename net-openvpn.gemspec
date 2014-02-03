@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "net-openvpn"
-  spec.version       = "0.1.1"
+  spec.version       = "0.2"
   spec.authors       = ["Robert McLeod"]
   spec.email         = ["robert@penguinpower.co.nz"]
   spec.description   = %q{Net-Openvpn is an openvpn library for configuring a local OpenVPN service}
