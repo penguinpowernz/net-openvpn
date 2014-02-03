@@ -22,6 +22,14 @@ module Net
         File.exists? path
       end
 
+      def new?
+        !exists?
+      end
+
+      def saved?
+        exists?
+      end
+
       def ip=(ip)
         @ip = ip
       end
@@ -33,6 +41,10 @@ module Net
       def validate!
         raise ArgumentError, "No IP set!" if @ip.nil? or @ip.empty?
         raise ArgumentError, "No network set!" if @network.nil? or @network.empty?
+      end
+
+      def remove
+        File.delete path
       end
 
       def save
