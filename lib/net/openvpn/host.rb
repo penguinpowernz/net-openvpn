@@ -27,6 +27,14 @@ module Net
         @config.save
       end
 
+      def remove
+        @config.remove
+      end
+
+      def new?
+        !@config.exists?
+      end
+
     end
   end
 end

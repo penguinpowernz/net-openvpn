@@ -22,14 +22,6 @@ module Net
         File.exists? path
       end
 
-      def new?
-        !exists?
-      end
-
-      def saved?
-        exists?
-      end
-
       def ip=(ip)
         @ip = ip
       end
