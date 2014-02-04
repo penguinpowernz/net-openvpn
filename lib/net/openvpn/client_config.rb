@@ -36,6 +36,7 @@ module Net
       end
 
       def remove
+        return true if File.exist? path
         File.delete path
       end
 
