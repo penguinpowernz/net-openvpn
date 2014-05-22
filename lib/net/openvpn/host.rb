@@ -2,9 +2,13 @@ module Net
   module Openvpn
     class Host
 
-      def initialize(hostname)
+      def initialize(hostname, **params)
         @hostname = hostname
         @config = Net::Openvpn::ClientConfig.new(@hostname)
+
+        params.each do |key, value|
+          self.send("#{key}=".to_sym, value)
+        end
       end
 
       def generate_key
