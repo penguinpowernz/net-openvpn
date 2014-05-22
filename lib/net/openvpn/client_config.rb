@@ -1,3 +1,5 @@
+require 'fileutils'
+
 module Net
   module Openvpn
     class ClientConfig
@@ -36,8 +38,8 @@ module Net
       end
 
       def remove
-        return true if File.exist? path
-        File.delete path
+        return true if !File.exist? path
+        FileUtils.rm path
       end
 
       def save
