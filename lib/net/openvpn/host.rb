@@ -52,3 +52,5 @@ module Net
     end
   end
 end
+
+Net::Openvpn::Client = Net::Openvpn::Host
