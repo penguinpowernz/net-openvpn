@@ -30,6 +30,14 @@ module Net
         Net::Openvpn::Server.new(name)
       end
 
+      # Returns the default key properties merged with
+      # the properties stored in /etc/openvpn/props.yml
+      def props
+        props = Openvpn::Generators::Keys::Properties
+
+        props.default + props.yaml
+      end
+
     end
   end
 end
