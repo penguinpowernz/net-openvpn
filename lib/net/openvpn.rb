@@ -3,6 +3,11 @@ require 'net/openvpn/host'
 require 'net/openvpn/client_config'
 require 'net/openvpn/parser/server_config'
 
+require 'net/openvpn/generators/keys/base'
+require 'net/openvpn/generators/keys/client'
+require 'net/openvpn/generators/keys/server'
+
+
 module Net
   module Openvpn
     class << self

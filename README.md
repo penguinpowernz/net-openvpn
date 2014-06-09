@@ -33,6 +33,27 @@ ifconfig-push 10.8.0.24 10.8.0.0
 
 So that any host connecting to the VPN with a hostname of `optimus` get assigned `10.8.0.24`.
 
+## Generating certificates and keys
+
+### Clients
+
+```ruby
+keys = Net::Openvpn::Generators::Keys::Client.new(name)
+keys.generate
+keys.exist?  # returns true if the key files exist
+keys.valid?  # returns true if the keys are valid in the index
+```
+
+You should now have the following files present:
+
+Revoke the keys like so:
+
+```ruby
+keys = Net::Openvpn::Generators::Keys::Client.new(name)
+keys.revoke!
+keys.valid?  # returns false
+```
+
 ## Rails Permissions
 
 If you are running rails and you want to give the rails user access, you could do it like this:
