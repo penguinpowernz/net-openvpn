@@ -4,8 +4,8 @@ module Net
       module Keys
         class Client < Base
 
-          def initialize(name)
-            super(name)
+          def initialize(name, **props)
+            super(name, props)
             @build_script = "build-key"
           end
           

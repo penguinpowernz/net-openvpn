@@ -3,8 +3,11 @@ module Net
     module Generators
       module Keys
         class Base
-          def initialize(name)
+          def initialize(name, props)
             @name = name
+            @props = Openvpn.props + props
+
+            Properties.validate! @props
           end
           
           # Returns true if all the generated keys exist or false if not
