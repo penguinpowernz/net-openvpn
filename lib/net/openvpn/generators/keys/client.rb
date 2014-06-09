@@ -17,8 +17,8 @@ module Net
           # Returns true if the generation was successful
           #
           def generate
-              system ". ./vars && ./#{build_script} #{@name}"
             FileUtils.cd(@props[:easy_rsa]) do
+              system "#{cli_prop_vars} ./#{build_script} #{@name}"
             end
 
             exist? || raise Openvpn::Errors::KeyGeneration, "Keys do not exist"
