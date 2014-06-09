@@ -66,6 +66,24 @@ module Net
             true
           end
 
+          private
+
+          # Generates the variable string of key properties
+          # to preceed easy-rsa script calls
+          #
+          # An example with just two properties:
+          #
+          #     EASY_RSA="/usr/share/easy-rsa" KEY_CN="fred" build-key ...
+          #
+          def cli_prop_vars
+            string = ""
+            @props.each do |key, value|
+              prop = key.to_s.upcase
+              string+= "#{prop}=\"#{value}\" "
+            end
+            string
+          end
+
         end
       end
     end
