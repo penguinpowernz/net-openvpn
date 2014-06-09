@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    net-openvpn (0.2)
+    net-openvpn (0.3)
 
 GEM
   remote: https://rubygems.org/
@@ -17,6 +17,7 @@ GEM
     rspec-expectations (2.14.5)
       diff-lcs (>= 1.1.3, < 2.0)
     rspec-mocks (2.14.5)
+    serialport (1.3.0)
 
 PLATFORMS
   ruby
@@ -27,3 +28,4 @@ DEPENDENCIES
   net-openvpn!
   rake
   rspec
+  serialport

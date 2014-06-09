@@ -2,9 +2,17 @@ module Net
   module Openvpn
     class Host
 
-      def initialize(hostname)
+      attr_accessor :ip, :network
+      attr_reader :hostname
+      alias_method :name, :hostname
+
+      def initialize(hostname, **params)
         @hostname = hostname
         @config = Net::Openvpn::ClientConfig.new(@hostname)
+
+        params.each do |key, value|
+          self.send("#{key}=".to_sym, value)
+        end
       end
 
       def generate_key
@@ -15,15 +23,17 @@ module Net
 
       end
 
-      def ip=(ip)
-        @config.ip = ip
+      def file
+        @config.path
       end
 
-      def network=(network)
-        @config.network = network
+      def path
+        @config.path
       end
 
       def save
+        @config.ip = ip
+        @config.network = network
         @config.save
       end
 
@@ -35,6 +45,12 @@ module Net
         !@config.exists?
       end
 
+      def exist?
+        @config.exists?
+      end
+
     end
   end
 end
+
+Net::Openvpn::Client = Net::Openvpn::Host
