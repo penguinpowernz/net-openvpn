@@ -10,6 +10,10 @@ module Net
             Properties.validate! @props
           end
           
+          def generate
+            raise NotImplentedError
+          end
+
           # Returns true if all the generated keys exist or false if not
           def exist?
             filepaths.each do |file|
