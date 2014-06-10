@@ -35,7 +35,7 @@ module Net
       def props
         props = Openvpn::Generators::Keys::Properties
 
-        props.default + props.yaml
+        props.default.merge props.yaml
       end
 
     end

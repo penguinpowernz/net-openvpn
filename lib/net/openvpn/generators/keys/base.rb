@@ -5,7 +5,7 @@ module Net
         class Base
           def initialize(name, props)
             @name = name
-            @props = Openvpn.props + props
+            @props = Openvpn.props.merge props
 
             Properties.validate! @props
           end
