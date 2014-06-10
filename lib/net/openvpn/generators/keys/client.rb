@@ -21,8 +21,8 @@ module Net
               system "#{cli_prop_vars} ./#{build_script} #{@name}"
             end
 
-            exist? || raise Openvpn::Errors::KeyGeneration, "Keys do not exist"
-            valid? || raise Openvpn::Errors::KeyGeneration, "keys are not valid"
+            exist? or raise Openvpn::Errors::KeyGeneration, "Keys do not exist"
+            valid? or raise Openvpn::Errors::KeyGeneration, "keys are not valid"
 
             true
           end
