@@ -22,25 +22,19 @@ module Net
             end
           end
 
-          # Returns true if the generated keys are valid or false if not
+          # Returns true if the generated keys are valid by checking
+          # the key index and then checking the pemfile against the crt
+          # file.
           def valid?
-            latest_valid = nil
-
             # read the index file
-            File.read(Openvpn.config[:key_index]).each_line do |line|
-              next if line.nil?
-              if line.include? @name and line =~ /^V/ # find the latest valid line
-                latest_valid = line
-              end
-            end
+            m = File.read(Openvpn.props[:key_index]).match /^V.*CN=#{@name}.*$/
 
-            #  line found? then there is no valid key
-            return false if latest_valid.nil?
+            return false if m.nil?
 
             # get the pem number and build the paths
-            pem = latest_valid.split("\t")[3]
-            pem_path = "#{Openvpn.config[:key_path]}/#{pem}.pem"
-            crt_path = "#{Openvpn.config[:key_path]}/#{@name}.crt"
+            pem = m[0].split("\t")[3]
+            pem_path = "#{Openvpn.props[:key_dir]}/#{pem}.pem"
+            crt_path = "#{Openvpn.props[:key_dir]}/#{@name}.crt"
 
             # Check the pem against the current cert for the name
             File.read(pem_path) == File.read(crt_path)
