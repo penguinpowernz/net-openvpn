@@ -1,11 +1,16 @@
+require 'fileutils'
+
 require 'net/openvpn/server'
 require 'net/openvpn/host'
+require 'net/openvpn/errors'
 require 'net/openvpn/client_config'
 require 'net/openvpn/parser/server_config'
 
 require 'net/openvpn/generators/keys/base'
 require 'net/openvpn/generators/keys/client'
 require 'net/openvpn/generators/keys/server'
+require 'net/openvpn/generators/keys/properties'
+require 'net/openvpn/generators/keys/authority'
 
 
 module Net
