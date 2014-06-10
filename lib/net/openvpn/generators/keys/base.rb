@@ -6,6 +6,7 @@ module Net
           def initialize(name, props)
             @name = name
             @props = Openvpn.props.merge props
+            @props[:key_cn] = @name
 
             Properties.validate! @props
           end
