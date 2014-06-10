@@ -38,7 +38,8 @@ module Net
                 pkcs11_pin: 1234
               }
 
-              props[:key_config] = %x[#{props[:easy_rsa]}/whichopensslcnf #{props[:easy_rsa]}]
+              props[:key_config] = "#{props[:easy_rsa]}/openssl-1.0.0.cnf"
+              props[:key_index]  = "#{props[:key_dir]}/index.txt"
 
               props
             end
