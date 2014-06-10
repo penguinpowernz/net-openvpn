@@ -6,7 +6,6 @@ module Net
 
           def initialize(name, **props)
             super(name, props)
-            @build_script = "build-key"
           end
           
           # Generates the certificates for a VPN client
@@ -20,7 +19,7 @@ module Net
             revoke! if exist? and valid?
             
             FileUtils.cd(@props[:easy_rsa]) do
-              system "#{cli_prop_vars} ./#{build_script} #{@name}"
+              system "#{cli_prop_vars} ./pkitool #{@name}"
             end
 
             exist? or raise Openvpn::Errors::KeyGeneration, "Keys do not exist"
