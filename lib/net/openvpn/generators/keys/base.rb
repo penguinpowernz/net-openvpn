@@ -76,12 +76,7 @@ module Net
           #     EASY_RSA="/usr/share/easy-rsa" KEY_CN="fred" build-key ...
           #
           def cli_prop_vars
-            string = ""
-            @props.each do |key, value|
-              prop = key.to_s.upcase
-              string+= "#{prop}=\"#{value}\" "
-            end
-            string
+            Properties.to_cli_vars(@props)
           end
 
         end

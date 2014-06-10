@@ -53,6 +53,15 @@ module Net
 
             end
 
+            def to_cli_vars(props)
+              string = ""
+              @props.each do |key, value|
+                prop = key.to_s.upcase
+                string+= "#{prop}=\"#{value}\" "
+              end
+              "export #{string}; "
+            end
+
           end
         end
       end
