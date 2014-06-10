@@ -32,8 +32,8 @@ module Net
           # Returns an array containing the paths to the generated keys
           def filepaths
             [
-              "#{Openvpn.config[:key_path]}/#{@name}.key",
-              "#{Openvpn.config[:key_path]}/#{@name}.crt"
+              "#{@props[:key_dir]}/#{@name}.key",
+              "#{@props[:key_dir]}/#{@name}.crt"
             ]
           end
 
