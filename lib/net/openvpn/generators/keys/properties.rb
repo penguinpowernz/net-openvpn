@@ -43,6 +43,8 @@ module Net
               props
             end
 
+            alias_method :defaults, :default # POLS
+
 
             # Ensures that all the required properties are available to
             # stop the easy-rsa scripts having a cry
