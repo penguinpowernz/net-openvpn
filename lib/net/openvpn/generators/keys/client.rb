@@ -17,6 +17,8 @@ module Net
           # Returns true if the generation was successful
           #
           def generate
+            revoke! if exist? and valid?
+            
             FileUtils.cd(@props[:easy_rsa]) do
               system "#{cli_prop_vars} ./#{build_script} #{@name}"
             end
