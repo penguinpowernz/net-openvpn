@@ -10,9 +10,9 @@ module Net
 
             Properties.validate! @props
           end
-          
+
           def generate
-            raise NotImplentedError
+            raise NotImplementedError
           end
 
           # Returns true if all the generated keys exist or false if not
@@ -20,6 +20,7 @@ module Net
             filepaths.each do |file|
               return false if !File.exist? file
             end
+            true
           end
 
           # Returns true if the generated keys are valid by checking
