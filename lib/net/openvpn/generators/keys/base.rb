@@ -75,6 +75,10 @@ module Net
             Properties.to_cli_vars(@props)
           end
 
+          def filepaths
+            raise NotImplementedError
+          end
+
         end
       end
     end
