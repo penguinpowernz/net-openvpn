@@ -20,7 +20,7 @@ module Net
                 openssl: "openssl",
                 pkcs11tool: "pkcs11-tool",
                 grep: "grep",
-                key_dir: "#{basepath}/keys",
+                key_dir: "#{Openvpn.basepath}/keys",
                 pkcs11_module_path: "dummy",
                 pkcs11_pin: "dummy",
                 key_size: 1024,
