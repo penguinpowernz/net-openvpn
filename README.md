@@ -54,6 +54,58 @@ host.network  # what is the network of this host
 
 ## Generating certificates and keys
 
+### Default key properties
+
+You will probably need to set key properties when generating keys.  There are some
+defaults already set and they can be seen by calling the `default` method on the
+`Properties` module (but are listed here for brevity):
+
+```ruby
+> Net::Openvpn::Generators::Keys::Properties.default
+{
+  :easy_rsa => "/usr/share/easy-rsa", 
+  :openssl => "openssl", 
+  :pkcs11tool => "pkcs11-tool", 
+  :grep => "grep", 
+  :key_dir => "/etc/openvpn/keys", 
+  :pkcs11_module_path => "changeme", 
+  :pkcs11_pin => 1234, 
+  :key_size => 1024, 
+  :ca_expire => 3650, 
+  :key_expire => 3650, 
+  :key_country => "US", 
+  :key_province => "CA", 
+  :key_city => "SanFrancisco", 
+  :key_org => "Fort-Funston", 
+  :key_email => "me@myhost.mydomain", 
+  :key_cn => "changeme", 
+  :key_name => "changeme", 
+  :key_ou => "changeme", 
+  :key_config => "/usr/share/easy-rsa/openssl-1.0.0.cnf"
+}
+```
+
+### Overriding key properties globally
+
+Key properties can be overidden by creating the file: `/etc/openvpn/props.yml`
+
+In this way you can override the default `openssl.cnf` file that is used as well as the
+location of your `easy-rsa` folder and key generation directory.
+
+```yml
+---
+:easy_rsa: /usr/local/easy-rsa
+:key_config: /path/to/openssl.cnf
+:key_dir: /path/to/generated/keys
+```
+
+Properties set in the YAML file will override the default ones.
+
+### Overriding key properties at generation time
+
+You can also provide key properties when you do the actual generation of the keys as
+described below.  These properties will override properties set in the YAML file.
+
 ### Clients
 
 ```ruby
