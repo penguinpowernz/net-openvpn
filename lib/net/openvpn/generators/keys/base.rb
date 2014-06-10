@@ -51,8 +51,8 @@ module Net
           def revoke!
             return false unless exist? and valid?
 
-            FileUtils.cd(Openvpn.config[:keygen_path]) do
-              output = `. ./vars && ./revoke-full #{mac}`
+            FileUtils.cd(Openvpn.props[:easy_rsa]) do
+              output = %x[#{cli_prop_vars} ./revoke-full #{@name}]
               raise Openvpn::Errors::CertificateRevocation, "Revoke command failed" if !output.include? "error 23" # error 23 means key was revoked
             end
 
