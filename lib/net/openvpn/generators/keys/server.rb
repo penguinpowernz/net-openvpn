@@ -25,10 +25,8 @@ module Net
 
           def filepaths
             [
-              "#{@props[:key_dir]}/ca.crt",
               "#{@props[:key_dir]}/#{@name}.key",
-              "#{@props[:key_dir]}/#{@name}.crt",
-              "#{@props[:key_dir]}/dh#{@props[:key_size]}.pem"
+              "#{@props[:key_dir]}/#{@name}.crt"
             ]
           end
 
