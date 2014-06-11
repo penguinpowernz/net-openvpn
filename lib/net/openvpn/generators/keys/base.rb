@@ -62,6 +62,35 @@ module Net
             true
           end
 
+          def setup?
+            File.directory?(@props[:key_dir]) and
+            File.exist?(@props[:key_index]) and
+            File.exist?("#{@props[:key_dir]}/serial")
+          end
+
+          def setup
+
+            FileUtils.mkdir_p @props[:key_dir] unless
+              File.directory? @props[:key_dir]
+
+            FileUtils.cd(@props[:key_dir]) do
+              FileUtils.touch @props[:key_index]
+              File.open("serial", "w") {|f| f.write "01" }
+            end
+
+            FileUtils.chown_R(
+              @props[:key_dir_owner],
+              @props[:key_dir_group],
+              @props[:key_dir]
+            )
+
+            FileUtils.chmod_R(
+              @props[:key_dir_permissions],
+              @props[:key_dir]
+            )
+
+          end
+
           private
 
           # Generates the variable string of key properties

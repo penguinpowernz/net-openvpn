@@ -67,7 +67,10 @@ defaults already set and they can be seen by calling the `default` method on the
   :openssl => "openssl", 
   :pkcs11tool => "pkcs11-tool", 
   :grep => "grep", 
-  :key_dir => "/etc/openvpn/keys", 
+  :key_dir => "/etc/openvpn/keys",
+  :key_dir_owner => "root",
+  :key_dir_group => "root",
+  :key_dir_permission => "700",
   :pkcs11_module_path => "changeme", 
   :pkcs11_pin => 1234, 
   :key_size => 1024, 
@@ -81,7 +84,8 @@ defaults already set and they can be seen by calling the `default` method on the
   :key_cn => "changeme", 
   :key_name => "changeme", 
   :key_ou => "changeme", 
-  :key_config => "/usr/share/easy-rsa/openssl-1.0.0.cnf"
+  :key_config => "/usr/share/easy-rsa/openssl-1.0.0.cnf",
+  :key_index => "/etc/openvpn/keys/index.txt"
 }
 ```
 
@@ -89,8 +93,8 @@ defaults already set and they can be seen by calling the `default` method on the
 
 Key properties can be overidden by creating the file: `/etc/openvpn/props.yml`
 
-In this way you can override the default `openssl.cnf` file that is used as well as the
-location of your `easy-rsa` folder and key generation directory.
+In this way you can override the default `openssl.cnf` file, the location of your 
+`easy-rsa` folder, key size or any properties listed above!
 
 ```yml
 ---
