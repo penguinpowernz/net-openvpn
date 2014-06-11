@@ -4,8 +4,8 @@ module Net
       module Keys
         class Authority < Base
 
-          def initialize(name, **props)
-            super(name, props)
+          def initialize(**props)
+            super(nil, props)
           end
 
           def generate

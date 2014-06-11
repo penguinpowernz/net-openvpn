@@ -10,13 +10,13 @@ module Net
           
           # Generates the certificates for a VPN client
           #
-          # Raises `Net::Openvpn::Errors::KeyGeneration` if the key files were
-          # not created or are not valid keys according to the keystore
+          # Raises `Net::Openvpn::Errors::KeyGeneration` if there were problems
           #
           # Returns true if the generation was successful
           #
           def generate
             setup? or raise Errors::KeyGeneration, "Key directory has not been setup yet"
+            Authority.new.exist? or raise Errors::KeyGeneration, "Certificate Authority has not been created"
 
             revoke! if exist? and valid?
 
