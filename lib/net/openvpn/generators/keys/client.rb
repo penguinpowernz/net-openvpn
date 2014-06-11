@@ -24,8 +24,8 @@ module Net
               system "#{cli_prop_vars} ./pkitool #{@name}"
             end
 
-            exist? or raise Openvpn::Errors::KeyGeneration, "Keys do not exist"
-            valid? or raise Openvpn::Errors::KeyGeneration, "keys are not valid"
+            exist? or raise Errors::KeyGeneration, "Keys do not exist"
+            valid? or raise Errors::KeyGeneration, "keys are not valid"
 
             true
           end

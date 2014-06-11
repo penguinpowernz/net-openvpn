@@ -54,10 +54,10 @@ module Net
 
             FileUtils.cd(Openvpn.props[:easy_rsa]) do
               output = %x[#{cli_prop_vars} ./revoke-full #{@name}]
-              raise Openvpn::Errors::CertificateRevocation, "Revoke command failed" if !output.include? "error 23" # error 23 means key was revoked
+              raise Errors::CertificateRevocation, "Revoke command failed" if !output.include? "error 23" # error 23 means key was revoked
             end
 
-            !valid? or raise Openvpn::Errors::CertificateRevocation, "Certificates were still valid after being revoked"
+            !valid? or raise Errors::CertificateRevocation, "Certificates were still valid after being revoked"
 
             true
           end
