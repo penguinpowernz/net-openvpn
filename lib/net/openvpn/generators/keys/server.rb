@@ -9,6 +9,8 @@ module Net
           end
 
           def generate
+            setup? or raise Errors::KeyGeneration, "Key directory has not been setup yet"
+            
             revoke! if exist? and valid?
 
             FileUtils.cd(@props[:easy_rsa]) do
