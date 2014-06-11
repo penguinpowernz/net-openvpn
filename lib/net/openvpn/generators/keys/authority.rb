@@ -10,10 +10,15 @@ module Net
 
           def generate
             raise Errors::KeyGeneration, "Authority already exists!" if exist?
+
+            setup unless setup?
+
             FileUtils.cd(@props[:easy_rsa]) do
               system "#{cli_prop_vars} ./pkitool --initca"
               system "#{cli_prop_vars} ./build-dh"
             end
+
+            true
           end
 
           def filepaths
