@@ -2,21 +2,26 @@ module Net
   module Openvpn
     module Generators
       module Keys
-        class Authority
+        class Authority < Base
 
-          def initialize(props)
-            @props = Openvpn.props.merge props
+          def initialize(name, **props)
+            super(name, props)
           end
 
           def generate
+            raise Errors::KeyGeneration, "Authority already exists!" if exist?
             FileUtils.cd(@props[:easy_rsa]) do
               system "#{cli_prop_vars} ./pkitool --initca"
               system "#{cli_prop_vars} ./build-dh"
             end
           end
 
-          def cli_prop_vars
-            Properties.to_cli_vars(@props)
+          def filepaths
+            [
+              "#{@props[:key_dir]}/ca.key",
+              "#{@props[:key_dir]}/ca.crt",
+              "#{@props[:key_dir]}/dh#{@props[:key_size]}.pem"
+            ]
           end
 
         end
