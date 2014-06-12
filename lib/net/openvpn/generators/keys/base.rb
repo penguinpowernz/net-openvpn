@@ -3,6 +3,8 @@ module Net
     module Generators
       module Keys
         class Base
+          attr_reader :props
+
           def initialize(name, props)
             @name = name
             @props = Openvpn.props.merge props
