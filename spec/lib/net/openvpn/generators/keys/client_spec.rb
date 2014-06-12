@@ -10,10 +10,18 @@ describe Net::Openvpn::Generators::Keys::Client do
   before(:each) { setup_filesystem(:tmp) }
   after(:each)  { destroy_filesystem(:tmp) }
 
+  it "should set the CN to the name" do
+    expect(client.props[:key_cn]).to eq name
+  end
+
   context "when a client has not been generated" do
     it "should not exist" do
       expect(client).to_not exist
-    end 
+    end
+
+    it "should not be valid" do
+      expect(client).to_not be_valid
+    end
   end
 
   context "when the key directory has not been generated" do
@@ -58,9 +66,7 @@ describe Net::Openvpn::Generators::Keys::Client do
       end
 
       context "and the client has been generated" do
-        before(:each) do
-          client.generate
-        end
+        before(:each) { client.generate }
 
         it "should exist" do
           expect(client).to exist
@@ -68,6 +74,11 @@ describe Net::Openvpn::Generators::Keys::Client do
 
         it "should be valid" do
           expect(client).to be_valid
+        end
+
+        it "should allow revocation" do
+          expect(client.revoke!).to be_true
+          expect(client).to_not be_valid
         end
       end
     end
