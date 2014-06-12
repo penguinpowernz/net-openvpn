@@ -13,7 +13,6 @@ require 'net/openvpn/generators/keys/server'
 require 'net/openvpn/generators/keys/properties'
 require 'net/openvpn/generators/keys/authority'
 
-
 module Net
   module Openvpn
     class << self
@@ -34,6 +33,19 @@ module Net
 
       def server(name)
         Net::Openvpn::Server.new(name)
+      end
+
+      def generator(type)
+        case type
+        when :client
+          Net::Openvpn::Generators::Keys::Client
+        when :server
+          Net::Openvpn::Generators::Keys::Server
+        when :directory
+          Net::Openvpn::Generators::Keys::Directory
+        when :authority
+          Net::Openvpn::Generators::Keys::Authority
+        end
       end
 
       # Returns the default key properties merged with
