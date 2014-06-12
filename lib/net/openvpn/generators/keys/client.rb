@@ -32,10 +32,15 @@ module Net
 
           # Returns an array containing the paths to the generated keys
           def filepaths
-            [
-              "#{@props[:key_dir]}/#{@name}.key",
-              "#{@props[:key_dir]}/#{@name}.crt"
-            ]
+            [ key, certificate ]
+          end
+
+          def certificate
+            "#{@props[:key_dir]}/#{@name}.crt"
+          end
+
+          def key
+            "#{@props[:key_dir]}/#{@name}.key"
           end
 
         end
