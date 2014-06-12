@@ -9,9 +9,8 @@ module Net
           end
 
           def generate
-            raise Errors::KeyGeneration, "Authority already exists!" if exist?
-
             @key_dir.setup? or raise Errors::KeyGeneration, "Key directory has not been setup yet"
+            !exist?         or raise Errors::KeyGeneration, "Authority already exists!"
 
             FileUtils.cd(@props[:easy_rsa]) do
               system "#{cli_prop_vars} ./pkitool --initca"
@@ -27,6 +26,10 @@ module Net
               "#{@props[:key_dir]}/ca.crt",
               "#{@props[:key_dir]}/dh#{@props[:key_size]}.pem"
             ]
+          end
+
+          def self.exist?
+            Authority.new.exist?
           end
 
         end
