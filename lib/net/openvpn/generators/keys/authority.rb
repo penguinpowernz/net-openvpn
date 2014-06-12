@@ -9,7 +9,7 @@ module Net
           end
 
           def generate
-            @key_dir.setup? or raise Errors::KeyGeneration, "Key directory has not been setup yet"
+            @key_dir.exist? or raise Errors::KeyGeneration, "Key directory has not been generated yet"
             !exist?         or raise Errors::KeyGeneration, "Authority already exists!"
 
             FileUtils.cd(@props[:easy_rsa]) do

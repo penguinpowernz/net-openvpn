@@ -8,7 +8,7 @@ module Net
             @props = Openvpn.props.merge props
           end
 
-          def setup?
+          def exist?
             File.directory?(@props[:key_dir]) and
             File.exist?(@props[:key_index]) and
             File.exist?("#{@props[:key_dir]}/serial")
@@ -17,7 +17,7 @@ module Net
           # Sets up the directory where keys are to be generated.
           # Also creates the serial and index.txt used by the pkitool
           # that comes with easy-rsa
-          def setup
+          def generate
 
             FileUtils.mkdir_p @props[:key_dir] unless
               File.directory? @props[:key_dir]

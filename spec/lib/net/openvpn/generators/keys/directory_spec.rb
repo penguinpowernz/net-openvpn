@@ -6,20 +6,20 @@ describe Net::Openvpn::Generators::Keys::Directory, fakefs: true do
 
   before(:each) { setup_filesystem(:fake) }
 
-  it "should make setup? true after setting up" do
-    dir.setup
-    expect(dir).to be_setup
+  it "should exist after generation" do
+    dir.generate
+    expect(dir).to exist
   end
 
   it "should create the key dir folder" do
-    dir.setup
+    dir.generate
     expect(File.exist? "/etc/openvpn/keys").to be_true
   end
 
   context "when the key dir property is changed" do
     let(:props) { { key_dir: "/etc/openvpn/my_keys", key_index: "/etc/openvpn/my_keys/index.txt" } }
     it "should create the key dir folder" do
-      dir.setup
+      dir.generate
       expect(File.exist? "/etc/openvpn/my_keys").to be_true
     end
   end

@@ -16,21 +16,21 @@ describe Net::Openvpn::Generators::Keys::Client do
     end 
   end
 
-  context "when the key directory has not been setup" do
+  context "when the key directory has not been generated" do
 
     it "should raise an error" do
       expect { client.generate }.to raise_error(
         Net::Openvpn::Errors::KeyGeneration,
-        "Key directory has not been setup yet"
+        "Key directory has not been generated yet"
       )
     end
 
   end
 
-  context "when the key directory has been setup" do
-    before(:each) { directory.setup }
+  context "when the key directory has been generated" do
+    before(:each) { directory.generate }
 
-    context "and the authority has not been setup" do
+    context "and the authority has not been generated" do
       before(:each) { expect(authority).to_not exist }
 
       it "should raise an error" do
@@ -41,13 +41,13 @@ describe Net::Openvpn::Generators::Keys::Client do
       end
     end
 
-    context "and the authority has been setup" do
+    context "and the authority has been generated" do
       before(:each) do
         authority.new.generate
         expect(authority).to exist
       end
 
-      context "and the client has not been setup" do
+      context "and the client has not been generated" do
         it "should not exist" do
           expect(client).to_not exist
         end
