@@ -4,6 +4,8 @@ Net-Openvpn is a gem for configuring a local OpenVPN installation.
 
 ## Requirements
 
+You will need these packages.
+
 * openvpn
 * easy-rsa
 
@@ -13,9 +15,21 @@ You can install these on Debian based systems by running this command:
 apt-get install openvpn easy-rsa
 ```
 
+### Easy RSA
+
+Easy RSA is only needed for key generation, so if you are not doing any of that then you don't need to worry.
+
 Sometimes `easy-rsa` is packaged with `openvpn` so if you can't find the `easy-rsa` package anywhere have a
-look in `/usr/share/doc/openvpn/examples` for the `easy-rsa` folder.  Then you can just globally override 
-the property for `:easy_rsa`  (see below).
+look in `/usr/share/doc/openvpn/examples` for the `easy-rsa` folder.
+
+You could also clone the `release/2.x` branch from the `easy-rsa` repo at `https://github.com/OpenVPN/easy-rsa.git` then copy the `easy-rsa/2.0` folder to wherever you want.
+
+```sh
+git clone https://github.com/OpenVPN/easy-rsa.git -b release/2.x
+sudo cp easy-rsa/easy-rsa/2.0 /usr/local/easy-rsa
+```
+
+Then you can just globally override the property for `:easy_rsa` to specify the location of the scripts folder (see below).
 
 ## Usage
 
