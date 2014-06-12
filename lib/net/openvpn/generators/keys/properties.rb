@@ -23,7 +23,7 @@ module Net
                 key_dir: "#{Openvpn.basepath}/keys",
                 key_dir_owner: "root",
                 key_dir_group: "root",
-                key_dir_permission: "700",
+                key_dir_permission: 0700,
                 pkcs11_module_path: "dummy",
                 pkcs11_pin: "dummy",
                 key_size: 1024,
@@ -49,16 +49,16 @@ module Net
 
             alias_method :defaults, :default # POLS
 
-
             # Ensures that all the required properties are available to
             # stop the easy-rsa scripts having a cry
             def validate!(props)
 
             end
 
+            # Creates a list of variables to preceed a bash command
             def to_cli_vars(props)
               string = ""
-              @props.each do |key, value|
+              props.each do |key, value|
                 prop = key.to_s.upcase
                 string+= "#{prop}=\"#{value}\" "
               end
