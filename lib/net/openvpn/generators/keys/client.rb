@@ -18,7 +18,7 @@ module Net
             @key_dir.exist?  or raise Errors::KeyGeneration, "Key directory has not been generated yet"
             Authority.exist? or raise Errors::KeyGeneration, "Certificate Authority has not been created"
 
-            revoke! if exist? and valid?
+            revoke! if valid?
 
             FileUtils.cd(@props[:easy_rsa]) do
               system "#{cli_prop_vars} ./pkitool #{@name}"
