@@ -69,11 +69,14 @@ host.network  # what is the network of this host
 
 ## Generating certificates and keys
 
+**WARNING: This functionality is a little bit experimental at the moment, I am sure there are bugs present which would be found with more specs.**
+
+The goal is to build these generators into the Host (read: Client) and Server classes above so you can do something like `server.generate_keys!`.
+
 ### Default key properties
 
 You will probably need to set key properties when generating keys.  There are some
-defaults already set and they can be seen by calling the `default` method on the
-`Properties` module (but are listed here for brevity):
+defaults already set and they can be seen by calling `Properties#default` (but are listed here for brevity):
 
 ```ruby
 > Net::Openvpn::Generators::Keys::Properties.default
@@ -118,7 +121,18 @@ In this way you can override the default `openssl.cnf` file, the location of you
 :key_dir: /path/to/generated/keys
 ```
 
-Properties set in the YAML file will override the default ones.
+Properties set in the YAML file will override the default ones.  You can see which properties are specified in the YAML file by checking the `Properties#yaml`.
+
+```ruby
+> Net::Openvpn::Generators::Keys::Properties.default
+{
+  :easy_rsa => "/usr/share/doc/openvpn/examples/easy-rsa/2.0",
+  :key_config => "/path/to/openssl.cnf",
+  :key_dir => "/path/to/generated/keys"
+}
+```
+
+But really you should use `Net::Openvpn#props` to get properties because that will merge the defaults with the properties from the YAML file, the latter overriding keys in the former.
 
 ### Overriding key properties at generation time
 
@@ -154,6 +168,7 @@ Net::Openvpn::Generators::Keys::Server.new(
 To start with the first thing you will need to do is setup the key directory.  This can be done with the following line:
 
 ```ruby
+# keys = Net::Openvpn.generator(:directory).new
 key_dir = Net::Openvpn::Generators::Keys::Directory.new 
 key_dir.generate
 key_dir.exist?  # check that it worked
@@ -170,7 +185,10 @@ This should generate the following files/folders:
 You will also need to generate the certificate authority and DH key like so.
 
 ```ruby
-Net::Openvpn::Generators::Keys::Authority.new
+# keys = Net::Openvpn.generator(:authority).new
+ca = Net::Openvpn::Generators::Keys::Authority.new
+ca.generate
+ca.exist?
 ```
 
 This should generate the following files/folders:
@@ -183,6 +201,7 @@ This should generate the following files/folders:
 ### Servers
 
 ```ruby
+# keys = Net::Openvpn.generator(:server).new("swzvpn04")
 keys = Net::Openvpn::Generators::Keys::Server.new("swzvpn04")
 keys.generate
 keys.exist?  # returns true if the key files exist
@@ -198,6 +217,7 @@ This should generate the following files/folders:
 ### Clients
 
 ```ruby
+# keys = Net::Openvpn.generator(:client).new("fred")
 keys = Net::Openvpn::Generators::Keys::Client.new("fred")
 keys.generate
 keys.exist?  # returns true if the key files exist
