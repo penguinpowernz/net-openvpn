@@ -125,21 +125,95 @@ Properties set in the YAML file will override the default ones.
 You can also provide key properties when you do the actual generation of the keys as
 described below.  These properties will override properties set in the YAML file.
 
-### Clients
+These properties can be supplied directly to the `Authority`, `Client`, `Server` and `Directory` classes in the `Generators::Keys` module as arguments to the `new` method:
 
 ```ruby
-keys = Net::Openvpn::Generators::Keys::Client.new(name)
+Net::Openvpn::Generators::Keys::Directory.new key_dir_permission: 0770
+
+Net::Openvpn::Generators::Keys::Authority.new key_size: 8192      # this will take hours lol
+
+Net::Openvpn::Generators::Keys::Client.new(
+  "fred",
+  key_country: "Switzerland",
+  key_province: "Romandy",
+  key_city: "Geneva",
+  key_email: "fred@example.com"
+)
+
+Net::Openvpn::Generators::Keys::Server.new(
+  "norvpn01",
+  key_country: "Norway",
+  key_province: "Ostlandet",
+  key_city: "Oslo",
+  key_email: "admin@example.com"
+)
+```
+
+### Key Directory
+
+To start with the first thing you will need to do is setup the key directory.  This can be done with the following line:
+
+```ruby
+key_dir = Net::Openvpn::Generators::Keys::Directory.new 
+key_dir.generate
+key_dir.exist?  # check that it worked
+```
+
+This should generate the following files/folders:
+
+* /etc/openvpn/keys
+* /etc/openvpn/keys/index.txt
+* /etc/openvpn/keys/serial
+
+### Certificate Authority
+
+You will also need to generate the certificate authority and DH key like so.
+
+```ruby
+Net::Openvpn::Generators::Keys::Authority.new
+```
+
+This should generate the following files/folders:
+
+* /etc/openvpn/keys
+* /etc/openvpn/keys/ca.crt
+* /etc/openvpn/keys/ca.key
+* /etc/openvpn/keys/dh1024.pem
+
+### Servers
+
+```ruby
+keys = Net::Openvpn::Generators::Keys::Server.new("swzvpn04")
 keys.generate
 keys.exist?  # returns true if the key files exist
 keys.valid?  # returns true if the keys are valid in the index
 ```
 
-You should now have the following files present:
+This should generate the following files/folders:
 
-Revoke the keys like so:
+* /etc/openvpn/keys
+* /etc/openvpn/keys/swzvpn04.key
+* /etc/openvpn/keys/swzvpn04.crt
+
+### Clients
 
 ```ruby
-keys = Net::Openvpn::Generators::Keys::Client.new(name)
+keys = Net::Openvpn::Generators::Keys::Client.new("fred")
+keys.generate
+keys.exist?  # returns true if the key files exist
+keys.valid?  # returns true if the keys are valid in the index
+```
+
+This should generate the following files/folders:
+
+* /etc/openvpn/keys
+* /etc/openvpn/keys/fred.key
+* /etc/openvpn/keys/fred.crt
+
+Revoke the keys like so (UNTESTED!):
+
+```ruby
+keys = Net::Openvpn::Generators::Keys::Client.new("fred")
 keys.revoke!
 keys.valid?  # returns false
 ```
@@ -156,4 +230,12 @@ chmod o-rwx /etc/openvpn -R
 cd /etc/openvpn
 chmod g-rwx easy-rsa *.key *.crt *.pem
 usermod -aG openvpn rails-app-user
+```
+
+Then override the following properties in your `/etc/openvpn/props.yml` file:
+
+```yaml
+---
+:key_dir_group: "openvpn"
+:key_dir_permission: 0700
 ```
