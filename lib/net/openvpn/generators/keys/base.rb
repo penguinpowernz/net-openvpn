@@ -30,6 +30,8 @@ module Net
           # the key index and then checking the pemfile against the crt
           # file.
           def valid?
+            return false unless @key_dir.exist?
+
             # read the index file
             m = File.read(Openvpn.props[:key_index]).match /^V.*CN=#{@name}.*$/
 
