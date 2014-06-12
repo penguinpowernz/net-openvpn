@@ -22,6 +22,10 @@ Easy RSA is only needed for key generation, so if you are not doing any of that 
 Sometimes `easy-rsa` is packaged with `openvpn` so if you can't find the `easy-rsa` package anywhere have a
 look in `/usr/share/doc/openvpn/examples` for the `easy-rsa` folder.
 
+```sh
+sudo cp /usr/share/doc/openvpn/examples/easy-rsa/2.0 /usr/local/easy-rsa
+```
+
 You could also clone the `release/2.x` branch from the `easy-rsa` repo at `https://github.com/OpenVPN/easy-rsa.git` then copy the `easy-rsa/2.0` folder to wherever you want.
 
 ```sh
@@ -207,7 +211,6 @@ ca.exist?
 
 This should generate the following files/folders:
 
-* /etc/openvpn/keys
 * /etc/openvpn/keys/ca.crt
 * /etc/openvpn/keys/ca.key
 * /etc/openvpn/keys/dh1024.pem
@@ -224,7 +227,6 @@ keys.valid?  # returns true if the keys are valid in the index
 
 This should generate the following files/folders:
 
-* /etc/openvpn/keys
 * /etc/openvpn/keys/swzvpn04.key
 * /etc/openvpn/keys/swzvpn04.crt
 
@@ -240,7 +242,6 @@ keys.valid?  # returns true if the keys are valid in the index
 
 This should generate the following files/folders:
 
-* /etc/openvpn/keys
 * /etc/openvpn/keys/fred.key
 * /etc/openvpn/keys/fred.crt
 
